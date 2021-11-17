@@ -51,7 +51,7 @@ const FormControl = () => {
                   <CFormInput
                     type="text"
                     id="exampleFormControlInput1"
-                    placeholder="1(855)....."
+                    placeholder="+1(855)....."
                     onChange={(e)=>setNumber(e.target.value)}
                     value={number}
                   />
