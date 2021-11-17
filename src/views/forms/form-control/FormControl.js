@@ -36,13 +36,17 @@ const FormControl = () => {
                     type="number"
                     id="exampleFormControlInput1"
                     placeholder="1(855)....."
-                    onChange={(e)=>setNumber(e)}
-                    value={}
+                    onChange={(e)=>setNumber(e.target.value)}
+                    value={number}
                   />
                 </div>
                 <div className="mb-3">
                   <CFormLabel htmlFor="exampleFormControlTextarea1">Message to send</CFormLabel>
-                  <CFormTextarea id="exampleFormControlTextarea1" rows="3"></CFormTextarea>
+                  <CFormTextarea 
+                    onChange={(e)=>setMessage(e.target.value)}
+                    value={message}
+                  id="exampleFormControlTextarea1" rows="3">
+                  </CFormTextarea>
                 </div>
               </CForm>
             </DocsExample>
