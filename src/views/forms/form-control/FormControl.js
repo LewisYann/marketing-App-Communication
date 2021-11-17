@@ -12,11 +12,23 @@ import {
   CRow,
 } from '@coreui/react'
 import { DocsCallout, DocsExample } from 'src/components'
-
+import axios from "axios"
 const FormControl = () => {
   const [number, setNumber]=useState('')
   const [message, setMessage]=useState('')
  
+  function onsubmitform(){
+    
+   
+    axios.post("https://bip-me.herokuapp.com/messages/new", 
+                                                            {to:"+1(855)9053768",
+                                                              from: number,
+                                                              body:message
+
+                                                            }
+                                                            ).then(console.log('successful')).catch(console.log('failed'))
+
+  }
   return (
     <CRow>
       <CCol xs={12}>
@@ -47,6 +59,11 @@ const FormControl = () => {
                     value={message}
                   id="exampleFormControlTextarea1" rows="3">
                   </CFormTextarea>
+                  <button
+                    onClick={()=>onsubmitform()}
+                  >
+                    Send message
+                  </button>
                 </div>
               </CForm>
             </DocsExample>
