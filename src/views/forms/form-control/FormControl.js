@@ -11,12 +11,15 @@ import {
   CFormTextarea,
   CRow,
 } from '@coreui/react'
-import { DocsCallout, DocsExample } from 'src/components'
-import axios from "axios"
-const FormControl = () => {
+ import axios from "axios"
+ import {Alert, Button} from 'react-bootstrap'
+ 
+ const FormControl = () => {
   const [number, setNumber]=useState("")
   const [message, setMessage]=useState("")
-  
+  const [show, setShow] = useState(false);
+  const [showFailed, setShowF] = useState(false);
+
  
   function onsubmitform(e){
     e.preventDefault()
@@ -24,28 +27,79 @@ const FormControl = () => {
     console.log(message)
     axios.post("https://bip-me.herokuapp.com/messages/new", 
                                                             {
-                                                              from:"+1(855)9053768",
+                                                              from:"+1(772)3031191",
                                                               to: number,
                                                               body:message
 
                                                             }
-                                                            ).then(console.log('successful')).catch(console.log('failed'))
+                                                            ).then(()=>{
+                                                              console.log('successful')
+                                                              setShow(true)
+}
+                                                              
+                                                              ).catch(
+                                                                ()=>{
+                                                                  console.log('Failed')
+                                                                  setShowF(true)
+    }
+                                                                
+                                                                )
+
 
   }
 
+  function AlertDismissible() {
+  
+    return (
+      <>
+        <Alert show={show} variant="success">
+          <Alert.Heading>Your message is sending</Alert.Heading>
+          <p>
+          Please wait few second to received it !
+          </p>
+          <hr />
+          <div className="d-flex justify-content-end">
+            <Button onClick={() => setShow(false)} variant="outline-success">
+             Close
+            </Button>
+          </div>
+        </Alert>
+        </>
+    );
+  }
+  function AlertDismissibleF() {
+  
+    return (
+      <>
+        <Alert show={showFailed} variant="danger">
+          <Alert.Heading>Failed</Alert.Heading>
+          <p>
+         Check your number phone
+          </p>
+          <hr />
+          <div className="d-flex justify-content-end">
+            <Button onClick={() => setShowF(false)} variant="outline-danger">
+             Close
+            </Button>
+          </div>
+        </Alert>
+        </>
+    );
+  }
+
+
   return (
     <CRow>
-      <CCol xs={12}>
-        <DocsCallout name="Form Control" href="forms/form-control" />
-      </CCol>
+        
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
+            <AlertDismissible/>
+            <AlertDismissibleF/>
             <strong>Sms Form</strong>
           </CCardHeader>
           <CCardBody>
-            <DocsExample href="forms/form-control">
-              <CForm>
+               <CForm>
                 <div className="mb-3">
                   <CFormLabel htmlFor="exampleFormControlInput1">Number Phone</CFormLabel>
                   <CFormInput
@@ -73,8 +127,7 @@ const FormControl = () => {
                 </div>
               
               </CForm>
-            </DocsExample>
-          </CCardBody>
+           </CCardBody>
         </CCard>
       </CCol>
      </CRow>
