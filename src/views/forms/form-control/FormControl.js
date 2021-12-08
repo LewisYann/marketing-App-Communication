@@ -95,7 +95,7 @@ import {
         <CCard className="mb-4">
           <CCardHeader>
             <AlertDismissible/>
-            <AlertDismissibleF/>
+            <AlertDismissibleF />
             <strong>Sms Form</strong>
           </CCardHeader>
           <CCardBody>

@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, {useState} from 'react'
+import { Link, Redirect } from 'react-router-dom'
 import {
   CButton,
   CCard,
@@ -17,6 +17,9 @@ import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 
 const Login = () => {
+  const [login,setLogin]=useState("")
+  const [password,setPassword]=useState("")
+
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
@@ -32,7 +35,7 @@ const Login = () => {
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
                       </CInputGroupText>
-                      <CFormInput placeholder="Username" autoComplete="username" />
+                      <CFormInput placeholder="Username" value={login} onChange={(text)=>{setLogin(text.target.value)}} autoComplete="username" />
                     </CInputGroup>
                     <CInputGroup className="mb-4">
                       <CInputGroupText>
@@ -42,11 +45,18 @@ const Login = () => {
                         type="password"
                         placeholder="Password"
                         autoComplete="current-password"
+                        value={password} onChange={(text)=>{setPassword(text.target.value)}}
                       />
                     </CInputGroup>
                     <CRow>
                       <CCol xs={6}>
-                        <CButton color="primary" className="px-4">
+                        <CButton color="primary" className="px-4" onClick={()=>{
+                          if(login=='upwork' && password=='upwork' ){
+                            return(
+                               <Redirect from="/" to="/forms/form-control" />
+                            )
+                          }
+                        }}>
                           Login
                         </CButton>
                       </CCol>
